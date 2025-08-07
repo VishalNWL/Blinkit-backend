@@ -1,7 +1,7 @@
 import { response } from 'express'
 import CartProductModel from '../models/cartproduct.model.js'
 import UserModel from '../models/user.model.js'
-import successAlert from '../../frontend/src/Utils/SuccessAlert.js'
+
 
 
 export const addToCartItemController = async(req,res)=>{
