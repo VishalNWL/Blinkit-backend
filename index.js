@@ -48,6 +48,7 @@ app.use('/api/product',productRouter)
 app.use('/api/cart',cartRouter)
 app.use('/api/address',addressRouter) 
 app.use('/api/order',orderRouter)
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 connectDB().then(()=>{
     app.listen(port,()=>{
