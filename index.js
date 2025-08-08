@@ -20,8 +20,8 @@ dotenv.config({
 
 const app= express();
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://blinkit-frontend-delta.vercel.app"
+  // "http://localhost:5173",
+  "https://blinkit-frontend-m08vk28mf-vishal-nemiwals-projects.vercel.app"
 ];
 
 app.use(cors({
