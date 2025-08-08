@@ -20,21 +20,28 @@ dotenv.config({
 
 const app= express();
 const allowedOrigins = [
-  "http://localhost:5173", // local dev
-  "https://blinkit-frontend-delta.vercel.app" // production
+  "http://localhost:5173",
+  "https://blinkit-frontend-delta.vercel.app"
 ];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // Allow non-browser requests
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
     }
+    return callback(new Error("Not allowed by CORS"));
   },
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+// Ensure preflight requests are handled
+app.options("*", cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
