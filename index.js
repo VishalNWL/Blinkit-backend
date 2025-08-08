@@ -19,11 +19,21 @@ dotenv.config({
 })
 
 const app= express();
-console.log(process.env.FRONTEND_URL)
+const allowedOrigins = [
+  "http://localhost:5173", // local dev
+  "https://blinkit-frontend-delta.vercel.app" // production
+];
+
 app.use(cors({
-    credentials:true,
-    origin:process.env.FRONTEND_URL
-}))
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
